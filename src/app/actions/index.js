@@ -4,7 +4,6 @@ import { signIn, signOut } from "../auth";
 export const doSocialLogin = async (formData) => {
   try {
     const actionValue = formData.get("action");
-    console.log("Action value:", actionValue);
     await signIn(actionValue, { redirectTo: "/home" });
   } catch (error) {
     console.error("Error during social login:", error);
@@ -17,6 +16,24 @@ export const doLogout = async () => {
     await signOut({ redirectTo: "/" });
   } catch (error) {
     console.error("Error during logout:", error);
+    throw error;
+  }
+};
+
+export const doCredentialsLogin = async (formData) => {
+  try {
+    const email = formData.get("email");
+    const password = formData.get("password");
+    console.error("Error during credentials login:", formData);
+    const response = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+
+    return response;
+  } catch (error) {
+    console.error("Error during credentials login:", error);
     throw error;
   }
 };

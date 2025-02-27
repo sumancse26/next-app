@@ -5,9 +5,9 @@ import Logout from "../components/Logout";
 
 const HomePage = async () => {
   const session = await auth();
-  console.log("session", session);
   if (!session?.user) redirect("/");
-  return (
+
+  return session.user?.image && session?.user.name ? (
     <div className="flex flex-col items-center m-4">
       <Image
         src={session?.user.image}
@@ -18,6 +18,11 @@ const HomePage = async () => {
       />
       <h1>{session.user.name}</h1>
       <h5>{session.user.email}</h5>
+      <Logout />
+    </div>
+  ) : (
+    <div className="flex flex-col items-center m-4">
+      <h5>Welcome, {session.user.email}</h5>
       <Logout />
     </div>
   );

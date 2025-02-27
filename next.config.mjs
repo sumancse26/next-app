@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    localPatterns: [], // add local image folders
+    localPatterns: [], // add local image from folders
     remotePatterns: [
       {
         protocol: "https",
