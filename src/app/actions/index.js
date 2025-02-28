@@ -24,7 +24,6 @@ export const doCredentialsLogin = async (formData) => {
   try {
     const email = formData.get("email");
     const password = formData.get("password");
-    console.error("Error during credentials login:", formData);
     const response = await signIn("credentials", {
       email,
       password,

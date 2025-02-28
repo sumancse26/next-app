@@ -1,5 +1,4 @@
 import { doSocialLogin } from "../actions/index";
-
 const SocialLoginForm = () => {
   return (
     <form

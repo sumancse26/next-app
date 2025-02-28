@@ -1,8 +1,8 @@
+import { PrismaClient } from "@prisma/client";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import { getUserByEmail } from "./data/users";
 export const {
   handlers: { GET, POST },
   auth,
@@ -17,7 +17,10 @@ export const {
       async authorize(credentials) {
         if (credentials == null) return null;
         try {
-          const user = getUserByEmail(credentials);
+          const prisma = new PrismaClient();
+          const user = await prisma.user.findUnique({
+            where: { email: credentials.email },
+          });
 
           if (user) {
             const isMatch = user.password == credentials.password;

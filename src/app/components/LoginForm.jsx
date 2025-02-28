@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { doCredentialsLogin } from "../actions/index";
 import SocialLoginForm from "./SocialLogin";
@@ -27,7 +28,7 @@ const LoginForm = () => {
         className="flex flex-col gap-4 items-center pt-3 "
         onSubmit={formSubmitHandler}
       >
-        <h5>Authentication with social networks or credentials</h5>
+        <h5>Login with social networks or credentials</h5>
         <div className="p-2 border border-gray-500 border-2">
           <div className="mb-2">
             <label htmlFor="email">Email Address</label>
@@ -58,8 +59,13 @@ const LoginForm = () => {
         </div>
         <h4>Or</h4>
       </form>
-
       <SocialLoginForm />
+      <div className="flex gap-1 justify-center mt-3">
+        <p>Dont have an account?</p>
+        <Link href="/register" className="mx-2 underline">
+          Register
+        </Link>
+      </div>
     </>
   );
 };
