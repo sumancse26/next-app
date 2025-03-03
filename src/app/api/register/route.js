@@ -1,11 +1,11 @@
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
+import { mailOptions, transporter } from "../../config/nodemailer";
 export const POST = async (req, res) => {
   const prisma = new PrismaClient();
 
   try {
     const reqBody = await req.json();
-
     const res = await prisma.user.create({
       data: {
         name: reqBody.name,
@@ -16,8 +16,17 @@ export const POST = async (req, res) => {
         access_token: reqBody.access_token,
         role: "user",
         created_at: new Date(),
+
         updated_at: new Date(),
       },
+    });
+
+    await transporter.sendMail({
+      ...mailOptions,
+      to: reqBody.email,
+      subject: "Registration form",
+      text: `Registration successful for ${reqBody.name}!`,
+      html: `<p>Registration successful for ${reqBody.name} with ${reqBody.email}!</p>`,
     });
 
     return NextResponse.json(

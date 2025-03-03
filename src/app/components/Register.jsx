@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+
 import SocialLoginForm from "./SocialLogin";
 
 const Register = () => {
@@ -26,7 +27,7 @@ const Register = () => {
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ name, email, password }), // Now it's guaranteed to be an object
+        body: JSON.stringify({ name, email, password }),
       });
 
       if (res.status == 201) {
